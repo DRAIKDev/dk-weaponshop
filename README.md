@@ -1,4 +1,4 @@
-# DK-WeaponShop (ESX_WeaponShop Rebuild)
+# DK-WeaponShop (ESX_WeaponShop Rebuild) 0.00 MS
 ## How to install
 
 - Download Files
