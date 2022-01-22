@@ -1,20 +1,12 @@
 Config               = {}
 
-Config.DrawDistance  = 80
-Config.Size          = { x = 1.5, y = 1.5, z = 0.5 }
-Config.Color         = { r = 0, g = 128, b = 255 }
-Config.Type          = 1
-
+Config.DrawDistance  = 10
+Config.Type          = 27
 Config.Locale        = 'es'
-
-Config.LicenseEnable = true -- only turn this on if you are using esx_license
+Config.Licenciadearmasactivada = true 
 Config.LicensePrice  = 20000
 
 Config.Zones = {
-
-	GunShop = {
-		Legal = true,
-		Items = {},
 		Locations = {
 			vector3(-662.1, -935.3, 20.8),
 			vector3(1693.4, 3759.5, 33.7),
@@ -25,39 +17,16 @@ Config.Zones = {
 			vector3(-1117.5, 2698.6, 17.5),
 			vector3(842.4, -1033.4, 27.1)
 		}
-	},
-
-	BlackWeashop = {
-		Legal = false,
-		Items = {},
-		Locations = {
-			vector3(-1306.2, -394.0, -35.6)
-		}
-	}
-    Armasalaventa = {
-            {  
-                "item": "WEAPON_PISTOL",
-                "price": 40000
-            },
-            {
-                "item": "WEAPON_FLASHLIGHT",
-                "price": 2000
-            },
-            {
-                "item": "WEAPON_KNIFE",
-                "price": 12000
-            },
-            {
-           
-                "item": "weapon_crowbar",
-                "price": 8000
-            },
-            {
-             
-                "item": "GADGET_PARACHUTE",
-                "price": 15000
-            }
-        
-    }
 
 }
+Config.Weapons = { 
+
+
+    {id = 1 ,model = 'WEAPON_PISTOL', label = 'Pistola', price = 40000},
+	{id = 2, model = 'WEAPON_FLASHLIGHT', label = 'Linterna', price = 2000},
+	{id = 3, model = 'WEAPON_KNIFE', label = 'Cuchillo', price = 12000},
+	{id = 4, model = 'weapon_crowbar', label = 'Palanca', price = 8000},
+	{id = 5, model = 'GADGET_PARACHUTE', label = 'Paracaidas', price = 15000}
+
+}
+

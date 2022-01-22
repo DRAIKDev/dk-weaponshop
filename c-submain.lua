@@ -1,13 +1,20 @@
-
+HelpText = function(text, sound, duration)
+    BeginTextCommandDisplayHelp('STRING')
+    AddTextComponentSubstringPlayerName(text) 
+    EndTextCommandDisplayHelp(0, false, sound, duration)
+end
 function OpenShopMenu(zone)
 	local elements = {}
 	ShopOpen = true
 
-	for i=1, #Config.Zones[zone].Items, 1 do
-		local item = Config.Zones[zone].Items[i]
-
+	for k,v in ipairs(Config.Weapons) do
 		table.insert(elements, {
-			label = ('%s - <span style="color: green;">%s</span>'):format(item.label, _U('shop_menu_item', ESX.Math.GroupDigits(item.price))),price = item.price,weaponName = item.item})
+			label = ('%s - <span style="color:green;">$%s</span>'):format(v.label, ESX.Math.GroupDigits(v.price)),
+			name  = v.label,
+			model = v.model,
+			price = v.price,
+			identifier = v.id
+		})
 	end
 
 	ESX.UI.Menu.CloseAll()
@@ -18,13 +25,13 @@ function OpenShopMenu(zone)
 		align = 'top-left',
 		elements = elements
 	}, function(data, menu)
-		ESX.TriggerServerCallback('esx_weaponshop:buyWeapon', function(bought)
+		ESX.TriggerServerCallback('dk-weaponshop:buyWeapon', function(bought)
 			if bought then
-				DisplayBoughtScaleform(data.current.weaponName, data.current.price)
+				DisplayBoughtScaleform(data.current.model, data.current.price)
 			else
 				PlaySoundFrontend(-1, 'ERROR', 'HUD_AMMO_SHOP_SOUNDSET', false)
 			end
-		end, data.current.weaponName, zone)
+		end, data.current.model,data.current.identifier)
 	end, function(data, menu)
 		PlaySoundFrontend(-1, 'BACK', 'HUD_AMMO_SHOP_SOUNDSET', false)
 		ShopOpen = false
@@ -76,7 +83,7 @@ function OpenBuyLicenseMenu(zone)
 		}
 	}, function(data, menu)
 		if data.current.value == 'yes' then
-			ESX.TriggerServerCallback('esx_weaponshop:buyLicense', function(bought)
+			ESX.TriggerServerCallback('dk-weaponshop:buyLicense', function(bought)
 				if bought then
 					menu.close()
 					OpenShopMenu(zone)
@@ -115,6 +122,27 @@ DrawText3D = function(x,y,z,textInput,fontId,scaleX,scaleY,opacity)
 	if resource == GetCurrentResourceName() then
 		if ShopOpen then
 			ESX.UI.Menu.CloseAll()
+		end
+	end
+end)
+
+-- Create Blips
+Citizen.CreateThread(function()
+	for k,v in pairs(Config.Zones) do
+		if v.Legal then
+			for i = 1, #v.Locations, 1 do
+				local blip = AddBlipForCoord(v.Locations[i])
+
+				SetBlipSprite (blip, 110)
+				SetBlipDisplay(blip, 4)
+				SetBlipScale  (blip, 0.7)
+				SetBlipColour (blip, 81)
+				SetBlipAsShortRange(blip, true)
+
+				BeginTextCommandSetBlipName("STRING")
+				AddTextComponentSubstringPlayerName(_U('map_blip'))
+				EndTextCommandSetBlipName(blip)
+			end
 		end
 	end
 end)
