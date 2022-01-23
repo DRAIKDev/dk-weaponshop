@@ -16,7 +16,7 @@ Citizen.CreateThread(function()
 		local sleep = 100
 		for k, v in pairs(Config.Zones.Locations) do
 			local me = PlayerPedId()
-			if GetDistanceBetweenCoords(GetEntityCoords(me), v) <= Config.DrawDistance and not IsPedDeadOrDying(me, true) then
+			if GetDistanceBetweenCoords(GetEntityCoords(me), v) <= Config.DrawDistance then
 				DrawText3D(v-vector3(0.0, 0.0, -0.5), vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0),"~r~ARMAS~s~", 0, 0.1, 0.1,255)
 				DrawMarker(Config.Type,v-vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 90.0), vector3(1.0, 1.0, -3.0), 255, 0, 0, 150, false, false, 2, false, false, false)
 				sleep = 0
