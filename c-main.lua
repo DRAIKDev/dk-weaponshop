@@ -6,11 +6,6 @@ Citizen.CreateThread(function()
 	end
 end)
 
-
-
-
-
-
 Citizen.CreateThread(function()
 	while true do
 		local sleep = 100
